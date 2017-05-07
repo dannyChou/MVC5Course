@@ -16,7 +16,7 @@ namespace MVC5Course.Controllers
         {
             var all = db.Product.AsQueryable();
             var data = all.Where(p => 
-                p.Active == true && p.ProductName.Contains("Black")
+                p.IsDeleted ==false && p.Active == true && p.ProductName.Contains("Black")
                 ).OrderByDescending( p=>p.ProductId).Take(10);
             return View(data);
         }
@@ -75,9 +75,10 @@ namespace MVC5Course.Controllers
             //    db.OrderLine.Remove(oderLine);
             //}
 
-            db.OrderLine.RemoveRange(item.OrderLine);
+            //db.OrderLine.RemoveRange(item.OrderLine);
 
-            db.Product.Remove(item);
+            //db.Product.Remove(item);
+            item.IsDeleted = true;
             db.SaveChanges();
 
             return RedirectToAction("Index");

@@ -10,8 +10,8 @@ namespace MVC5Course.Models
     public partial class Product
     {
         public int 訂單數量 { get {
-                //return this.OrderLine.Count();
-                return this.OrderLine.Count(p => p.Qty > 15);
+                return this.OrderLine.Count();
+                //return this.OrderLine.Count(p => p.Qty > 15);
             }
         }
     }
