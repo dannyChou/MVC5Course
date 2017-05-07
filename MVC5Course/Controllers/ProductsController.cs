@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MVC5Course.Models;
+using MVC5Course.Models.ViewModels;
 
 namespace MVC5Course.Controllers
 {
@@ -15,14 +16,11 @@ namespace MVC5Course.Controllers
         private FabricsEntities db = new FabricsEntities();
 
         // GET: Products
-        public ActionResult Index(bool Active = true,string name = "")
+        public ActionResult Index(bool Active = true)
         {
-            IEnumerable<MVC5Course.Models.Product> data;
-            if (string.IsNullOrWhiteSpace(name))
-                data = db.Product.Where(p=>p.Active.HasValue && p.Active.Value==Active).OrderByDescending(p => p.ProductId).Take(10);
-            else
-                data = db.Product.Where(p => p.Active.HasValue && p.Active.Value == Active && p.ProductName.Substring(0,name.Length).Equals(name)).OrderByDescending(p => p.ProductId).Take(10);
-
+            var data = db.Product
+                .Where(p => p.Active.HasValue && p.Active.Value == Active)
+                .OrderByDescending(p => p.ProductId).Take(10);
             return View(data);
         }
 
@@ -48,8 +46,8 @@ namespace MVC5Course.Controllers
         }
 
         // POST: Products/Create
-        // 若要免於過量張貼攻擊，請啟用想要繫結的特定屬性，如需
-        // 詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=317598。
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ProductId,ProductName,Price,Active,Stock")] Product product)
@@ -80,8 +78,8 @@ namespace MVC5Course.Controllers
         }
 
         // POST: Products/Edit/5
-        // 若要免於過量張貼攻擊，請啟用想要繫結的特定屬性，如需
-        // 詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=317598。
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ProductId,ProductName,Price,Active,Stock")] Product product)
@@ -128,6 +126,22 @@ namespace MVC5Course.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult ListProducts()
+        {
+            var data = db.Product
+                .Where(p => p.Active == true)
+                .Select(p => new ProductLiteVM()
+                {
+                    ProductId = p.ProductId,
+                    ProductName = p.ProductName,
+                    Price = p.Price,
+                    Stock = p.Stock
+                })
+                .Take(10);
+
+            return View(data);
         }
     }
 }
