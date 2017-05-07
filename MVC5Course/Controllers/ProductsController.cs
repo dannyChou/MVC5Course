@@ -154,6 +154,9 @@ namespace MVC5Course.Controllers
         {
             if (ModelState.IsValid) {
                 //TODO 將資料寫進資料庫
+                #region 新增資料
+
+                #endregion
                 return RedirectToAction("ListProducts");
             }
             return View();
