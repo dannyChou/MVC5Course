@@ -37,9 +37,9 @@ public partial class Product
 
     public Nullable<decimal> Stock { get; set; }
 
-    public bool IsDeleted { get; set; }
-
     public System.DateTime CreatedOn { get; set; }
+
+    public bool Is刪除 { get; set; }
 
 
 
