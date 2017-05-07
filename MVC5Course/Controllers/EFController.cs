@@ -70,8 +70,16 @@ namespace MVC5Course.Controllers
         public ActionResult Delete(int id, Product product)
         {
             var item = db.Product.Find(id);
+
+            //foreach (var oderLine in item.OrderLine) {
+            //    db.OrderLine.Remove(oderLine);
+            //}
+
+            db.OrderLine.RemoveRange(item.OrderLine);
+
             db.Product.Remove(item);
             db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 
