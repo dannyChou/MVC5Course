@@ -4,15 +4,15 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace MVC5Course.Models.ValidationAttribute
+namespace MVC5Course.Models.ValidationExt
 {
     public class 商品名稱必須有DannyAttribute : DataTypeAttribute
     {
-        public string DannyType { get; set; } 
+        public string DannyType { get; set; }
 
-        public 商品名稱必須有DannyAttribute():base(DataType.Text)
+        public 商品名稱必須有DannyAttribute() : base(DataType.Text)
         {
-           
+
         }
 
         public override bool IsValid(object value)
