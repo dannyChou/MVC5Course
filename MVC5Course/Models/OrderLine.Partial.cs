@@ -7,6 +7,7 @@ namespace MVC5Course.Models
     [MetadataType(typeof(OrderLineMetaData))]
     public partial class OrderLine
     {
+
     }
     
     public partial class OrderLineMetaData
