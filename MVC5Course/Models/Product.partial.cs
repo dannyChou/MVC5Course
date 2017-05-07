@@ -5,14 +5,27 @@ namespace MVC5Course.Models
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
+    using ValidationAttribute;
 
     [MetadataType(typeof(ProductMetaData))]
-    public partial class Product
+    public partial class Product:IValidatableObject
     {
         public int 訂單數量 { get {
                 return this.OrderLine.Count();
                 //return this.OrderLine.Count(p => p.Qty > 15);
             }
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (this.Price > 100 && this.Stock > 5) {
+                yield return new ValidationResult("價格與庫存數量不合理",new string[] { "price","stock"});
+            }
+
+            if (this.OrderLine.Count() == 0 && this.ProductName.Contains("X")) {
+                yield return new ValidationResult("Stock與訂單數量不合", new string[] { "ProductName" });
+            }
+            yield break;
         }
     }
     
@@ -22,6 +35,7 @@ namespace MVC5Course.Models
         //[MinLength(3), MaxLength(30)]
         //[RegularExpression("(.+)-(.+)", ErrorMessage = "商品名稱格式錯誤")]
         [DisplayName("商品名稱")]
+        [商品名稱必須有Danny(ErrorMessage = "商品名稱必須有Danny",DannyType = "T")]
         public string ProductName { get; set; }
         [Required]
         [Range(0, 999999, ErrorMessage = "請設定正確的商品價格範圍")]
