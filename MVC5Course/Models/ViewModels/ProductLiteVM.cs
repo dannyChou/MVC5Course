@@ -10,6 +10,7 @@ namespace MVC5Course.Models.ViewModels
     {
         public int ProductId { get; set; }
         [Required]
+        [MinLength(5)]
         public string ProductName { get; set; }
         [Required]
         public Nullable<decimal> Price { get; set; }
