@@ -4,12 +4,14 @@ namespace MVC5Course.Models
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
+    using System.Linq;
 
     [MetadataType(typeof(ProductMetaData))]
     public partial class Product
     {
         public int 訂單數量 { get {
-                return this.OrderLine.Count;
+                //return this.OrderLine.Count();
+                return this.OrderLine.Count(p => p.Qty > 15);
             }
         }
     }
