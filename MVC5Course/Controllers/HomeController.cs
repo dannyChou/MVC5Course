@@ -29,6 +29,12 @@ namespace MVC5Course.Controllers
             }
         }
 
+        public ActionResult SomeAction()
+        {
+            return PartialView("SuccessRedirect","/");
+        }
+
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
