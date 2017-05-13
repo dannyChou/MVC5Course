@@ -21,7 +21,11 @@ namespace MVC5Course.Controllers
         public ActionResult Index(bool Active = true)
         {
             var data = repo.GetProduct列表頁所有資料(Active, showAll:false);
-            return View(data);
+
+            ViewData.Model = data;
+            ViewData["ppp"] = data;
+            ViewBag.ppp = data;
+            return View();
         }
 
         // GET: Products/Details/5
@@ -158,7 +162,7 @@ namespace MVC5Course.Controllers
             if (ModelState.IsValid) {
                 //TODO 將資料寫進資料庫
                 #region 新增資料
-
+                TempData["__Temp__"] = "CreateProduct";
                 #endregion
                 return RedirectToAction("ListProducts");
             }

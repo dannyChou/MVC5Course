@@ -2,9 +2,19 @@
 
 @{
     ViewBag.Title = "ListProducts";
+
+    string createMSG = string.Empty;
+
+    if (TempData["__Temp__"] != null) {
+        createMSG = TempData["__Temp__"].ToString();
+    }
 }
 
 <h2>ListProducts</h2>
+@if (!string.IsNullOrWhiteSpace(createMSG))
+{
+    <H1>@createMSG</H1>
+}
 
 <p>
     @Html.ActionLink("Create New", "Create")
