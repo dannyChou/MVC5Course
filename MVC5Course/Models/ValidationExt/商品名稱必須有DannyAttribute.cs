@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 
 namespace MVC5Course.Models.ValidationExt
@@ -17,8 +18,14 @@ namespace MVC5Course.Models.ValidationExt
 
         public override bool IsValid(object value)
         {
-            var str = (string)value;
-            return str.Contains("Danny");
+            if (DannyType.Equals("Y"))
+            {
+                var str = (string)value;
+                return str.Contains("Danny");
+            }
+            else {
+                return true;
+            }
         }
     }
 }

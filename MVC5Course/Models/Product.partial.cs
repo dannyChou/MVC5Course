@@ -35,7 +35,7 @@ namespace MVC5Course.Models
         //[MinLength(3), MaxLength(30)]
         //[RegularExpression("(.+)-(.+)", ErrorMessage = "商品名稱格式錯誤")]
         [DisplayName("商品名稱")]
-        [商品名稱必須有Danny(ErrorMessage = "商品名稱必須有Danny",DannyType = "T")]
+        [商品名稱必須有Danny(ErrorMessage = "商品名稱必須有Danny",DannyType = "Y")]
         [商品名稱必須有Test判斷Stock("Stock")]
         public string ProductName { get; set; }
         [Required]
