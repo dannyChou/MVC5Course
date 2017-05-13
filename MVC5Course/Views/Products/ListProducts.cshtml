@@ -1,24 +1,28 @@
 ﻿@model IEnumerable<MVC5Course.Models.ViewModels.ProductLiteVM>
-
 @{
     ViewBag.Title = "ListProducts";
 
     string createMSG = string.Empty;
 
-    if (TempData["__Temp__"] != null) {
+    if (TempData["__Temp__"] != null)
+    {
         createMSG = TempData["__Temp__"].ToString();
     }
-}
 
+}
 <h2>ListProducts</h2>
 @if (!string.IsNullOrWhiteSpace(createMSG))
 {
     <H1>@createMSG</H1>
 }
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+    <form method="get">
+    商品名稱:@Html.TextBox("ProductName")
+    庫存數量:
+    @Html.TextBox("Stock_S", null, new { size = "10", type = "number" }) ~
+    @Html.TextBox("Stock_E", null, new { size = "10", type = "number" })
+    <button>搜尋</button>
+</form>
+<br />
 <table class="table">
     <tr>
         <th>
@@ -34,22 +38,21 @@
             @Html.DisplayNameFor(model => model.Stock)
         </th>
     </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Stock)
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stock)
+            </td>
+        </tr>
+    }
 </table>

@@ -136,19 +136,28 @@ namespace MVC5Course.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult ListProducts()
+        public ActionResult ListProducts(QueryProductsVM queryVM)
         {
-            var data = repo.GetProduct列表頁所有資料(true,showAll:true)     //db.Product.Where(p => p.Active == true)
-                .Select(p => new ProductLiteVM()
-                {
-                    ProductId = p.ProductId,
-                    ProductName = p.ProductName,
-                    Price = p.Price,
-                    Stock = p.Stock
-                })
-                .Take(10);
+            var data = repo.GetProduct列表頁所有資料(true);
 
-            return View(data);
+            if (ModelState.IsValid) {
+                if (!string.IsNullOrEmpty(queryVM.ProductName))
+                {
+                    data = data.Where(p => p.ProductName.Contains(queryVM.ProductName));
+                }
+
+                data = data.Where(p => p.Stock > queryVM.Stock_S && p.Stock < queryVM.Stock_E);
+            }
+
+            ViewData.Model = data.Select(p => new ProductLiteVM()
+                            {
+                                ProductId = p.ProductId,
+                                ProductName = p.ProductName,
+                                Price = p.Price,
+                                Stock = p.Stock
+                            });
+
+            return View();
         }
 
         public ActionResult CreateProduct()
