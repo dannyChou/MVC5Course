@@ -12,7 +12,7 @@ using System.Data.Entity.Validation;
 
 namespace MVC5Course.Controllers
 {
-    public class ProductsController : Controller
+    public class ProductsController : BaseController
     {
         //private FabricsEntities db = new FabricsEntities();
         ProductRepository repo = RepositoryHelper.GetProductRepository();
