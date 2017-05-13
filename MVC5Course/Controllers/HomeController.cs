@@ -18,6 +18,16 @@ namespace MVC5Course.Controllers
             return View();
         }
 
+        public ActionResult PartialAbout() {
+            ViewBag.Message = "Your application description page.";
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("About");
+            }
+            else {
+                return View("About");
+            }
+        }
 
         public ActionResult About()
         {
